@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Tienda - Mochila & Buso</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            color: #666;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .product-title {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .product-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .product-price {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .contact-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .contact-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            margin: 20px 10px;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛍️ Tu Tienda Online</h1>
+            <p class="subtitle">Productos de calidad al mejor precio</p>
+        </header>
+
+        <div class="products-grid">
+            <!-- Producto 1: Mochila -->
+            <div class="product-card">
+                <div class="product-image">🎒</div>
+                <h2 class="product-title">Mochila Premium</h2>
+                <p class="product-description">
+                    Mochila resistente y cómoda, perfecta para el día a día. 
+                    Múltiples compartimentos, material impermeable y diseño ergonómico. 
+                    Ideal para trabajo, estudio o viajes.
+                </p>
+                <div class="product-price">$45.000</div>
+                <button class="btn" onclick="openModal('mochila')">Comprar Ahora</button>
+                <button class="btn" onclick="addToCart('mochila')" style="background: linear-gradient(135deg, #28a745, #20c997);">Agregar al Carrito</button>
+            </div>
+
+            <!-- Producto 2: Buso -->
+            <div class="product-card">
+                <div class="product-image">👕</div>
+                <h2 class="product-title">Buso Deportivo</h2>
+                <p class="product-description">
+                    Buso cómodo y versátil, perfecto para cualquier ocasión. 
+                    Tela suave y transpirable, disponible en varios colores y tallas. 
+                    Ideal para deportes o uso casual.
+                </p>
+                <div class="product-price">$35.000</div>
+                <button class="btn" onclick="openModal('buso')">Comprar Ahora</button>
+                <button class="btn" onclick="addToCart('buso')" style="background: linear-gradient(135deg, #28a745, #20c997);">Agregar al Carrito</button>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <h2 class="contact-title">📞 Contáctanos</h2>
+            <p>¿Tienes preguntas? ¡Estamos aquí para ayudarte!</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📱</span>
+                    <span>WhatsApp: +57 300 123 4567</span>
+                </div>
+                <div class="contact-item">
+                    <span>📧</span>
+                    <span>Email: info@tutienda.com</span>
+                </div>
+                <div class="contact-item">
+                    <span>📍</span>
+                    <span>La Paz, Bolivia</span>
+                </div>
+            </div>
+
+            <a href="https://wa.me/573001234567?text=Hola, me interesa conocer más sobre sus productos" class="whatsapp-btn" target="_blank">
+                <span>💬</span>
+                Escribir por WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Confirmar Compra</h2>
+            <p id="modalMessage">¿Deseas continuar con la compra?</p>
+            <div style="margin-top: 20px;">
+                <button class="btn" onclick="confirmPurchase()" style="margin-right: 10px;">Confirmar</button>
+                <button class="btn" onclick="closeModal()" style="background: #6c757d;">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentProduct = '';
+        let cart = [];
+
+        function openModal(product) {
+            currentProduct = product;
+            const modal = document.getElementById('productModal');
+            const title = document.getElementById('modalTitle');
+            const message = document.getElementById('modalMessage');
+            
+            if (product === 'mochila') {
+                title.textContent = 'Mochila Premium - $45.000';
+                message.textContent = '¿Deseas comprar la Mochila Premium por $45.000?';
+            } else if (product === 'buso') {
+                title.textContent = 'Buso Deportivo - $35.000';
+                message.textContent = '¿Deseas comprar el Buso Deportivo por $35.000?';
+            }
+            
+            modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('productModal');
+            modal.style.display = 'none';
+        }
+
+        function confirmPurchase() {
+            const productName = currentProduct === 'mochila' ? 'Mochila Premium' : 'Buso Deportivo';
+            const price = currentProduct === 'mochila' ? '$45.000' : '$35.000';
+            
+            // Redirigir a WhatsApp con mensaje personalizado
+            const message = encodeURIComponent(`Hola! Me interesa comprar el ${productName} por ${price}. ¿Podrían darme más información?`);
+            const whatsappUrl = `https://wa.me/573001234567?text=${message}`;
+            
+            window.open(whatsappUrl, '_blank');
+            closeModal();
+        }
+
+        function addToCart(product) {
+            cart.push(product);
+            
+            // Animación de feedback
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = '✅ Agregado!';
+            button.style.background = '#28a745';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+            }, 2000);
+            
+            console.log('Carrito:', cart);
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            // Aquí podrías agregar lógica para mostrar el carrito
+            console.log(`Productos en el carrito: ${cart.length}`);
+        }
+
+        // Cerrar modal al hacer clic fuera de él
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Efectos de scroll suave
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.product-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
