@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu Tienda - Mochila & Buso</title>
+    <title>Galería Premium - 50 Productos</title>
     <style>
         * {
             margin: 0;
@@ -13,16 +13,14 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            padding: 20px;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
         }
 
         header {
@@ -33,163 +31,201 @@
         }
 
         h1 {
-            font-size: 3em;
+            font-size: 3.5em;
             margin-bottom: 10px;
             animation: fadeInDown 1s ease-out;
         }
 
         .subtitle {
-            font-size: 1.2em;
+            font-size: 1.3em;
             opacity: 0.9;
             animation: fadeInUp 1s ease-out 0.3s both;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px 25px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            animation: fadeInUp 1s ease-out 0.6s both;
         }
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .product-card {
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-            animation: fadeInUp 1s ease-out;
+            animation: fadeInUp 1s ease-out 0.9s both;
         }
 
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 250px;
-            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+        .product-item {
+            background: white;
             border-radius: 15px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4em;
-            color: #666;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 2px solid transparent;
+            cursor: pointer;
             position: relative;
             overflow: hidden;
         }
 
-        .product-image::before {
+        .product-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .product-item::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s infinite;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s ease;
         }
 
-        .product-title {
-            font-size: 1.8em;
-            margin-bottom: 15px;
-            color: #333;
+        .product-item:hover::before {
+            left: 100%;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 10px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-number {
+            font-size: 1.2em;
             font-weight: bold;
-        }
-
-        .product-description {
-            color: #666;
-            margin-bottom: 20px;
-            line-height: 1.6;
+            color: #333;
+            margin-bottom: 8px;
         }
 
         .product-price {
-            font-size: 2em;
+            font-size: 1.1em;
             font-weight: bold;
             color: #667eea;
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-            width: 100%;
             margin-bottom: 10px;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        .product-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(10px);
         }
 
-        .btn:active {
+        .product-item:hover .product-btn {
+            opacity: 1;
             transform: translateY(0);
         }
 
-        .contact-section {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            padding: 30px;
+        .product-btn:hover {
+            background: linear-gradient(135deg, #5a67d8, #667eea);
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            margin-top: 40px;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            color: white;
+        }
+
+        .contact-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 30px;
             backdrop-filter: blur(10px);
-            animation: fadeInUp 1s ease-out 0.6s both;
-        }
-
-        .contact-title {
-            font-size: 2em;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #666;
-            font-size: 1.1em;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         .whatsapp-btn {
             background: #25D366;
             color: white;
             text-decoration: none;
-            padding: 15px 30px;
+            padding: 12px 25px;
             border-radius: 50px;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1.1em;
+            gap: 8px;
             font-weight: bold;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-            margin: 20px 10px;
+            margin-top: 15px;
         }
 
         .whatsapp-btn:hover {
             background: #128C7E;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
         }
 
+        /* Responsivo */
+        @media (max-width: 1200px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 15px;
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Animaciones */
         @keyframes fadeInDown {
             from {
                 opacity: 0;
@@ -212,26 +248,7 @@
             }
         }
 
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-
-        @media (max-width: 768px) {
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            h1 {
-                font-size: 2em;
-            }
-            
-            .contact-info {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-
+        /* Modal para producto */
         .modal {
             display: none;
             position: fixed;
@@ -246,7 +263,7 @@
 
         .modal-content {
             background: white;
-            margin: 10% auto;
+            margin: 8% auto;
             padding: 30px;
             border-radius: 20px;
             width: 90%;
@@ -278,68 +295,49 @@
         .close:hover {
             color: #000;
         }
+
+        .modal-product-image {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🛍️ Tu Tienda Online</h1>
-            <p class="subtitle">Productos de calidad al mejor precio</p>
+            <h1>🛍️ Galería Premium</h1>
+            <p class="subtitle">Descubre nuestra colección completa de productos</p>
+            <div class="stats">
+                <div class="stat-item">📦 50 Productos</div>
+                <div class="stat-item">🚚 Envío Gratis</div>
+                <div class="stat-item">💳 Pago Seguro</div>
+                <div class="stat-item">⭐ Calidad Premium</div>
+            </div>
         </header>
 
-        <div class="products-grid">
-            <!-- Producto 1: Mochila -->
-            <div class="product-card">
-                <div class="product-image">🎒</div>
-                <h2 class="product-title">Mochila Premium</h2>
-                <p class="product-description">
-                    Mochila resistente y cómoda, perfecta para el día a día. 
-                    Múltiples compartimentos, material impermeable y diseño ergonómico. 
-                    Ideal para trabajo, estudio o viajes.
-                </p>
-                <div class="product-price">$45.000</div>
-                <button class="btn" onclick="openModal('mochila')">Comprar Ahora</button>
-                <button class="btn" onclick="addToCart('mochila')" style="background: linear-gradient(135deg, #28a745, #20c997);">Agregar al Carrito</button>
-            </div>
-
-            <!-- Producto 2: Buso -->
-            <div class="product-card">
-                <div class="product-image">👕</div>
-                <h2 class="product-title">Buso Deportivo</h2>
-                <p class="product-description">
-                    Buso cómodo y versátil, perfecto para cualquier ocasión. 
-                    Tela suave y transpirable, disponible en varios colores y tallas. 
-                    Ideal para deportes o uso casual.
-                </p>
-                <div class="product-price">$35.000</div>
-                <button class="btn" onclick="openModal('buso')">Comprar Ahora</button>
-                <button class="btn" onclick="addToCart('buso')" style="background: linear-gradient(135deg, #28a745, #20c997);">Agregar al Carrito</button>
-            </div>
+        <div class="products-grid" id="productsGrid">
+            <!-- Los productos se generarán con JavaScript -->
         </div>
 
-        <div class="contact-section">
-            <h2 class="contact-title">📞 Contáctanos</h2>
-            <p>¿Tienes preguntas? ¡Estamos aquí para ayudarte!</p>
-            
-            <div class="contact-info">
-                <div class="contact-item">
-                    <span>📱</span>
-                    <span>WhatsApp: +57 300 123 4567</span>
-                </div>
-                <div class="contact-item">
-                    <span>📧</span>
-                    <span>Email: info@tutienda.com</span>
-                </div>
-                <div class="contact-item">
-                    <span>📍</span>
-                    <span>La Paz, Bolivia</span>
+        <div class="footer">
+            <div class="contact-section">
+                <h3>📞 ¿Interesado en algún producto?</h3>
+                <p>¡Contáctanos por WhatsApp y te ayudamos con tu compra!</p>
+                <a href="https://wa.me/573001234567?text=Hola! Me interesa conocer más sobre sus productos de la galería" class="whatsapp-btn" target="_blank">
+                    <span>💬</span>
+                    Contactar por WhatsApp
+                </a>
+                <div style="margin-top: 20px; opacity: 0.8;">
+                    <p>📱 +57 300 123 4567 | 📧 info@galeriapremium.com | 📍 La Paz, Bolivia</p>
                 </div>
             </div>
-
-            <a href="https://wa.me/573001234567?text=Hola, me interesa conocer más sobre sus productos" class="whatsapp-btn" target="_blank">
-                <span>💬</span>
-                Escribir por WhatsApp
-            </a>
         </div>
     </div>
 
@@ -347,77 +345,83 @@
     <div id="productModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h2 id="modalTitle">Confirmar Compra</h2>
-            <p id="modalMessage">¿Deseas continuar con la compra?</p>
-            <div style="margin-top: 20px;">
-                <button class="btn" onclick="confirmPurchase()" style="margin-right: 10px;">Confirmar</button>
-                <button class="btn" onclick="closeModal()" style="background: #6c757d;">Cancelar</button>
+            <h2 id="modalTitle">Producto #1</h2>
+            <div class="modal-product-image" id="modalImage">🎁</div>
+            <p id="modalPrice">$25.000</p>
+            <p id="modalDescription">¿Te interesa este producto? ¡Contáctanos para más información!</p>
+            <div style="margin-top: 25px;">
+                <button class="whatsapp-btn" onclick="contactWhatsApp()" style="margin: 0;">
+                    <span>💬</span>
+                    Preguntar por WhatsApp
+                </button>
             </div>
         </div>
     </div>
 
     <script>
-        let currentProduct = '';
-        let cart = [];
+        // Array de emojis para productos
+        const productEmojis = [
+            '🎒', '👕', '👖', '👟', '⌚', '📱', '💻', '🎧', '📷', '🕶️',
+            '👜', '🧢', '🧣', '🧤', '👔', '👗', '👠', '💄', '💍', '📚',
+            '✏️', '🖊️', '📐', '🖥️', '⌨️', '🖱️', '💾', '🔌', '🔋', '💡',
+            '🏀', '⚽', '🎾', '🏐', '🏓', '🎯', '🎮', '🃏', '🧩', '🎲',
+            '🍎', '🍌', '🍓', '🥑', '🍞', '🧀', '🍯', '☕', '🍵', '🥤'
+        ];
 
-        function openModal(product) {
-            currentProduct = product;
-            const modal = document.getElementById('productModal');
-            const title = document.getElementById('modalTitle');
-            const message = document.getElementById('modalMessage');
-            
-            if (product === 'mochila') {
-                title.textContent = 'Mochila Premium - $45.000';
-                message.textContent = '¿Deseas comprar la Mochila Premium por $45.000?';
-            } else if (product === 'buso') {
-                title.textContent = 'Buso Deportivo - $35.000';
-                message.textContent = '¿Deseas comprar el Buso Deportivo por $35.000?';
+        // Generar precios aleatorios
+        function generateRandomPrice() {
+            const prices = [15000, 18000, 22000, 25000, 28000, 32000, 35000, 38000, 42000, 45000, 48000, 52000, 55000, 58000, 62000];
+            return prices[Math.floor(Math.random() * prices.length)];
+        }
+
+        // Generar la galería de productos
+        function generateProductGallery() {
+            const grid = document.getElementById('productsGrid');
+            let html = '';
+
+            for (let i = 1; i <= 50; i++) {
+                const emoji = productEmojis[i - 1];
+                const price = generateRandomPrice();
+                
+                html += `
+                    <div class="product-item" onclick="openProductModal(${i}, '${emoji}', ${price})">
+                        <div class="product-image">${emoji}</div>
+                        <div class="product-number">Producto #${i}</div>
+                        <div class="product-price">$${price.toLocaleString()}</div>
+                        <button class="product-btn">Ver Detalles</button>
+                    </div>
+                `;
             }
+
+            grid.innerHTML = html;
+        }
+
+        // Variables para el modal
+        let currentProduct = {};
+
+        function openProductModal(number, emoji, price) {
+            currentProduct = { number, emoji, price };
             
-            modal.style.display = 'block';
+            document.getElementById('modalTitle').textContent = `Producto #${number}`;
+            document.getElementById('modalImage').textContent = emoji;
+            document.getElementById('modalPrice').textContent = `$${price.toLocaleString()}`;
+            document.getElementById('modalDescription').textContent = `¿Te interesa el Producto #${number}? ¡Contáctanos para más información y disponibilidad!`;
+            
+            document.getElementById('productModal').style.display = 'block';
         }
 
         function closeModal() {
-            const modal = document.getElementById('productModal');
-            modal.style.display = 'none';
+            document.getElementById('productModal').style.display = 'none';
         }
 
-        function confirmPurchase() {
-            const productName = currentProduct === 'mochila' ? 'Mochila Premium' : 'Buso Deportivo';
-            const price = currentProduct === 'mochila' ? '$45.000' : '$35.000';
-            
-            // Redirigir a WhatsApp con mensaje personalizado
-            const message = encodeURIComponent(`Hola! Me interesa comprar el ${productName} por ${price}. ¿Podrían darme más información?`);
+        function contactWhatsApp() {
+            const message = encodeURIComponent(`Hola! Me interesa el Producto #${currentProduct.number} ${currentProduct.emoji} por $${currentProduct.price.toLocaleString()}. ¿Podrían darme más información?`);
             const whatsappUrl = `https://wa.me/573001234567?text=${message}`;
-            
             window.open(whatsappUrl, '_blank');
             closeModal();
         }
 
-        function addToCart(product) {
-            cart.push(product);
-            
-            // Animación de feedback
-            const button = event.target;
-            const originalText = button.textContent;
-            button.textContent = '✅ Agregado!';
-            button.style.background = '#28a745';
-            
-            setTimeout(() => {
-                button.textContent = originalText;
-                button.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
-            }, 2000);
-            
-            console.log('Carrito:', cart);
-            updateCartDisplay();
-        }
-
-        function updateCartDisplay() {
-            // Aquí podrías agregar lógica para mostrar el carrito
-            console.log(`Productos en el carrito: ${cart.length}`);
-        }
-
-        // Cerrar modal al hacer clic fuera de él
+        // Cerrar modal al hacer clic fuera
         window.onclick = function(event) {
             const modal = document.getElementById('productModal');
             if (event.target === modal) {
@@ -425,23 +429,51 @@
             }
         }
 
-        // Efectos de scroll suave
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.product-card');
-            
+        // Efectos de aparición en scroll
+        function setupScrollAnimations() {
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
+                entries.forEach((entry, index) => {
                     if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 50);
                     }
                 });
             });
 
-            cards.forEach(card => {
-                observer.observe(card);
+            document.querySelectorAll('.product-item').forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = 'all 0.6s ease';
+                observer.observe(item);
             });
+        }
+
+        // Inicializar cuando carga la página
+        document.addEventListener('DOMContentLoaded', function() {
+            generateProductGallery();
+            setTimeout(setupScrollAnimations, 100);
         });
+
+        // Efecto de contador en tiempo real
+        function updateStats() {
+            const statItems = document.querySelectorAll('.stat-item');
+            statItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05)';
+                    this.style.background = 'rgba(255, 255, 255, 0.3)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.background = 'rgba(255, 255, 255, 0.2)';
+                });
+            });
+        }
+
+        // Ejecutar efectos adicionales
+        setTimeout(updateStats, 1000);
     </script>
 </body>
 </html>
